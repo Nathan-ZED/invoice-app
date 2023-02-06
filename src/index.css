@@ -1,0 +1,22 @@
+@import url('https://fonts.googleapis.com/css2?family=League+Spartan:wght@100;200;300;400;500;600;700;800;900&display=swap');
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+    html {
+        font-family: 'League Spartan', sans-serif;
+        -webkit-tap-highlight-color: transparent;
+    }
+    span {
+        height: 18px;
+    }
+}
+
+body[data-theme="dark"] {
+    @apply bg-secondVeryDark text-white
+}
+
+body[data-theme="light"] {
+    @apply bg-white text-secondVeryDark
+}
