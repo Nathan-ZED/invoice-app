@@ -3,7 +3,9 @@ import data from '../data.json'
 
 interface IInvoiceContext {
     invoices: any,
-    setInvoices: any[],
+    setInvoices: Function,
+    selectedInvoice: any,
+    setSelectedInvoice: Function,
 }
 
 export const InvoiceContext = createContext<IInvoiceContext>({} as IInvoiceContext);
@@ -16,10 +18,15 @@ interface IProps {
 export function InvoiceContextProvider({ children }: IProps): JSX.Element {
 
     const [invoices, setInvoices] = useState<any>([...data]);
+    const [selectedInvoice, setSelectedInvoice] = useState();
 
-    // @ts-ignore
     return (
-        <InvoiceContext.Provider value={[invoices, setInvoices]}>
+        <InvoiceContext.Provider value={{
+                invoices,
+                setInvoices,
+                selectedInvoice,
+                setSelectedInvoice
+        }}>
             {children}
         </InvoiceContext.Provider>
         );
