@@ -13,10 +13,16 @@
     }
 }
 
-body[data-theme="dark"] {
+body[data-theme="dark"],
+body[data-theme="dark"] .card  {
     @apply bg-secondVeryDark text-white
 }
 
-body[data-theme="light"] {
+body[data-theme="dark"] .card span {
+    @apply text-white
+}
+
+body[data-theme="light"],
+body[data-theme="light"].card {
     @apply bg-white text-secondVeryDark
 }

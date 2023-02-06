@@ -4,33 +4,32 @@ import moon from '../../assets/images/icon-moon.svg';
 import sun from '../../assets/images/icon-sun.svg';
 import mainAvatar from '../../assets/images/avatar.jpg';
 import { ThemeContext } from "../../contexts/ThemeContext";
-import { useContext} from "react";
+import {useContext, useEffect, useState} from "react";
 
 type Props = {
 
 };
 export const Navigation = (props: Props) => {
-    const { theme, setTheme } = useContext(ThemeContext);
-
-    const checkTheme = () => {
-        return theme === 'light' ? 'dark' : 'light';
-    }
+    const { setTheme, theme } = useContext(ThemeContext);
 
     return (
         <nav className='bg-lightDark flex items-center h-[72px] justify-between p-y overflow-hidden'>
             <div className='bg-mainPurple w-[72px] rounded-r-2xl min-h-full relative overflow-hidden'>
                 <img src={logo} className='absolute z-10 top-5 left-5' alt='logo' />
-                <div className='bg-lightPurple rounded-tl-3xl absolute top-7 z-2 w-full h-full'></div>
+                <div className='bg-lightPurple rounded-tl-3xl absolute top-7 z-1 w-full h-full'></div>
             </div>
             <div className='flex items-center justify-center'>
                 <button
                     type='button'
-                    onClick={() => setTheme(checkTheme())}
-                >
-                    {
+                    onClick={() => setTheme(
                         theme === 'light'
-                            ? <img src={moon} alt='go to dark mode' />
-                            : <img src={sun} alt='go to light mode' />
+                            ? 'dark'
+                            : 'light'
+                    )}>
+                    {
+                        theme !== 'light'
+                            ? <img src={sun} alt='go to dark mode' />
+                            : <img src={moon} alt='go to light mode' />
 
                     }
                 </button>

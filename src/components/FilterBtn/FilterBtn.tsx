@@ -8,8 +8,7 @@ type Props = {
 };
 export const FilterBtn = (props: Props) => {
 
-    const {theme} = useContext(ThemeContext);
-
+    const theme = document.body.dataset.theme
     const [isOpen, setIsOpen] = useState(false)
 
     return (

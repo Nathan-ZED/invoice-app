@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { ThemeContext } from "../../contexts/ThemeContext";
 import { InvoiceContext } from "../../contexts/InvoiceContext";
-import {useContext, useEffect} from "react";
+import {useContext, useEffect, useState} from "react";
 
 type Props = {
     invoice: {
@@ -14,12 +14,12 @@ type Props = {
 };
 export const InvoiceCard = ({ invoice }:Props) => {
     const { setSelectedInvoice, selectedInvoice } = useContext(InvoiceContext);
-    const { theme } = useContext(ThemeContext)
+    const [theme, setTheme] = useState(document.body.dataset.theme);
 
     return (
         <div
             role='listitem'
-            className={`${theme === 'dark' ? 'bg-veryDark' : 'bg-fullWhite'} w-full p-[24px] rounded-lg shadow-lg shadow-blueGrey/10 mb-5`}>
+            className={`w-full p-[24px] rounded-lg shadow-lg shadow-blueGrey/10 mb-5 card`}>
             <button type="button"
                     className='w-full'
                     onClick={() =>  setSelectedInvoice(invoice)}>
@@ -30,7 +30,7 @@ export const InvoiceCard = ({ invoice }:Props) => {
                 <div className='flex items-end justify-between'>
                     <div className='flex flex-col items-start justify-center'>
                         <span className='font-regular text-blueGrey'>Due {invoice.paymentDue}</span>
-                        <span className={`text-[20px] font-bold ${theme === 'dark' ? 'text-white' : 'text-dark'} pb-6`}>{invoice.items[0].total} €</span>
+                        <span className={`text-[20px] font-bold ${theme === 'dark' ? 'text-white' : 'text-dark'} pb-6`}>{parseFloat(invoice.items[0].total).toFixed(2)} €</span>
                     </div>
                     {
                         invoice.status === 'paid'

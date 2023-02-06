@@ -10,7 +10,15 @@ type Props = {
 };
 export const InvoiceList = (props: Props) => {
 
-    const [invoicesItems, setInvoicesItems] = useState<object[]>(data);
+    const [invoicesItems, setInvoicesItems] = useState<any>(data);
+
+    useEffect(() => {
+        if(localStorage.getItem('invoices')) {
+            const json = JSON.parse(localStorage.getItem('invoices'));
+            setInvoicesItems(json);
+        }
+    }, []);
+
 
     return (
         <div

@@ -14,16 +14,12 @@ interface IProps {
 
 export function ThemeContextProvider({ children }: IProps): JSX.Element {
 
-    const [theme, setTheme] = useState('light')
-
-    const toggleTheme = (theme:string) => {
-        theme === 'light'
-        ? document.body.dataset.theme = "light"
-        : document.body.dataset.theme= "dark"
-    }
+    const [theme, setTheme] = useState<any>('light')
 
     useEffect(() => {
-        toggleTheme(theme)
+        console.log(theme)
+        localStorage.setItem('theme', theme)
+        document.body.dataset.theme = theme;
     },[theme])
     
     return (
