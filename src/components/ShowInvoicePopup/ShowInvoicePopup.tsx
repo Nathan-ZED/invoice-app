@@ -28,6 +28,14 @@ export const ShowInvoicePopup = (props: Props) => {
 
     const [stateStatus, setStatus] = useState(selectedInvoice.status)
 
+    const deleteInvoice = () => {
+        const local: any = localStorage.getItem('invoices');
+        const json = JSON.parse(local);
+        const index = json.indexOf(selectedInvoice);
+        const filtered = json.filter((el:any) => el.id !== selectedInvoice.id);
+
+    }
+
     return (
         <div className='fixed z-20 top-0 left-0 w-full h-full bottom-0'>
             <div className='bg-veryDark/30 backdrop-blur-sm w-full h-full absolute top-0 left-0 z-20'></div>
@@ -118,6 +126,7 @@ export const ShowInvoicePopup = (props: Props) => {
                 </button>
                 <button
                     type='button'
+                    onClick={() => deleteInvoice()}
                     className='bg-red text-fullWhite rounded-full px-5 py-2 text-2xl'>
                     Delete
                 </button>

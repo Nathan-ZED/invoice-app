@@ -14,7 +14,7 @@ export const TopBar = (props: Props) => {
         <div className='flex items-center justify-between px-[24px]'>
             <div>
                 <h1 className='font-semibold font-dark text-[20px]'>Invoices</h1>
-                <span>{invoices.length} invoices</span>
+                <span>{1} invoices</span>
             </div>
             <div className='flex items-center justify-between'>
                 <div className='pr-[18px]'>

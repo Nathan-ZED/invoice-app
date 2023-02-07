@@ -14,14 +14,27 @@ interface IProps {
 
 export function ThemeContextProvider({ children }: IProps): JSX.Element {
 
-    const [theme, setTheme] = useState<any>('light')
+    const [theme, setTheme] = useState<any>(localStorage.getItem('theme'))
+
+    const setThemeInStorage = (theme: string) => {
+        localStorage.setItem('theme', theme)
+    }
 
     useEffect(() => {
-        console.log(theme)
-        localStorage.setItem('theme', theme)
-        document.body.dataset.theme = theme;
+        if(!theme) {
+            setThemeInStorage('light');
+            setTheme('light');
+            document.body.dataset.theme = 'light';
+        }
+    },[])
+
+    useEffect(() => {
+        if(theme) {
+            setThemeInStorage(theme);
+            document.body.dataset.theme = theme;
+        }
     },[theme])
-    
+
     return (
         <ThemeContext.Provider value={{theme, setTheme}}>
             {children}

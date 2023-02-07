@@ -10,36 +10,39 @@ type Props = {
 };
 export const InvoiceList = (props: Props) => {
 
-    const [invoicesItems, setInvoicesItems] = useState<any>(data);
+    const { invoices, setInvoices } = useContext(InvoiceContext);
+    const [items, setItems] = useState();
 
     useEffect(() => {
-        if(localStorage.getItem('invoices')) {
-            const json = JSON.parse(localStorage.getItem('invoices'));
-            setInvoicesItems(json);
-        }
     }, []);
 
+    const showItems = () => {
+        if(invoices.length > 0) {
+            return (
+                invoices.map((invoice:any) => (
+                    <InvoiceCard
+                        key={invoice.id}
+                        invoice={invoice}
+                    />
+                ))
+            );
+        }
+        if(invoices.length === 0) {
+            return (
+                <div className='flex flex-col items-center py-20'>
+                    <img src={illustrationEmpty} alt='invoice list empty' />
+                    <h2 className='text-2xl text-dark font-semibold py-5'>Il n'y a rien ici</h2>
+                    <p className='text-lg text-blueGrey font-light text-center w-[70%]'>Créez une nouvelle facture en cliquant sur le bouton <b>"new"</b> pour continuer</p>
+                </div>
+            );
+        }
+    }
 
     return (
         <div
             role='list'
             className='flex flex-col items-center justify-center w-full px-[24px]'>
-            {
-               !invoicesItems
-                   ?
-                   <div className='flex flex-col items-center py-20'>
-                       <img src={illustrationEmpty} alt='invoice list empty' />
-                       <h2 className='text-2xl text-dark font-semibold py-5'>Il n'y a rien ici</h2>
-                       <p className='text-lg text-blueGrey font-light text-center w-[70%]'>Créez une nouvelle facture en cliquant sur le bouton <b>"new"</b> pour continuer</p>
-                   </div>
-                   : invoicesItems.map((invoice:any) => (
-                        <InvoiceCard
-                            key={invoice.id}
-                            invoice={invoice}
-                        />
-                    ))
-            }
-
+            {showItems()}
         </div>
     );
 };
