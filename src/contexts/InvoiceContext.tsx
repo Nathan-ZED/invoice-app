@@ -6,6 +6,8 @@ interface IInvoiceContext {
     setInvoices: Function,
     selectedInvoice: any,
     setSelectedInvoice: Function,
+    addMode: boolean,
+    setAddMode: Function,
 }
 
 export const InvoiceContext = createContext<IInvoiceContext>({} as IInvoiceContext);
@@ -23,6 +25,8 @@ export function InvoiceContextProvider({ children }: IProps): JSX.Element {
 
     const [invoices, setInvoices] = useState<any>(getInitialStorage());
     const [selectedInvoice, setSelectedInvoice] = useState();
+    const [addMode, setAddMode] = useState(false);
+
 
     useEffect(() => {
         if(invoices.length === 0) {
@@ -38,7 +42,9 @@ export function InvoiceContextProvider({ children }: IProps): JSX.Element {
                 invoices,
                 setInvoices,
                 selectedInvoice,
-                setSelectedInvoice
+                setSelectedInvoice,
+                addMode,
+                setAddMode,
         }}>
             {children}
         </InvoiceContext.Provider>

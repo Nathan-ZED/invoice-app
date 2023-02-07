@@ -5,7 +5,6 @@ import {useContext} from "react";
 import {InvoiceContext} from "../../contexts/InvoiceContext";
 
 type Props = {
-
 };
 export const TopBar = (props: Props) => {
     const { invoices } = useContext(InvoiceContext);

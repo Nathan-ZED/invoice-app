@@ -11,7 +11,7 @@ export const ShowInvoicePopup = (props: Props) => {
 
     const theme = document.body.dataset.theme;
 
-    const { selectedInvoice, setSelectedInvoice } = useContext(InvoiceContext);
+    const { selectedInvoice, setSelectedInvoice, setInvoices, invoices } = useContext(InvoiceContext);
     const {
         id,
         description,
@@ -28,12 +28,21 @@ export const ShowInvoicePopup = (props: Props) => {
 
     const [stateStatus, setStatus] = useState(selectedInvoice.status)
 
+    const setNewSatus = (status:any) => {
+        const find = invoices.find((el:any) => el.id === selectedInvoice.id)
+        const filter = invoices.filter((el:any) => el.id !== selectedInvoice.id)
+        console.log(filter);
+        find.status = status;
+        setStatus(status)
+        setInvoices([{...find}, ...filter])
+    }
+
     const deleteInvoice = () => {
         const local: any = localStorage.getItem('invoices');
         const json = JSON.parse(local);
-        const index = json.indexOf(selectedInvoice);
         const filtered = json.filter((el:any) => el.id !== selectedInvoice.id);
-
+        setInvoices([...filtered]);
+        setSelectedInvoice(null);
     }
 
     return (
@@ -134,7 +143,7 @@ export const ShowInvoicePopup = (props: Props) => {
                     stateStatus !== 'paid'
                         ? <button
                             type='button'
-                            onClick={() => setStatus('paid')}
+                            onClick={() => setNewSatus('paid')}
                             className='bg-mainPurple text-fullWhite rounded-full px-5 py-2 text-2xl'>
                             Mark as paid
                          </button>
